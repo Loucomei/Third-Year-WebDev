@@ -104,7 +104,15 @@ button:focus-visible {
 .newsForm p {
   font-weight: bold;
 }
-
+.user {
+  background-color: rgb(175, 175, 175);
+  border: 3px black solid;
+  border-radius: 3px;
+  text-align: center;
+}
+.user:hover {
+  background-color: lightgray;
+}
 
 @media (prefers-color-scheme: light) {
   :root {
