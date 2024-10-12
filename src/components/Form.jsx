@@ -1,5 +1,6 @@
 import { useState } from "react";
 import validator from "validator";
+import { toast } from "react-toastify";
 
 const Form = () => {
     const [firstname, setFirstname] = useState("");
@@ -23,10 +24,21 @@ const Form = () => {
         console.log(validator.isEmail(e.target.value));
     };
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log(e.currentTarget);
+        const data = new FormData(e.currentTarget);
+        const entries = Object.fromEntries(data);
+        console.log(entries)
+        document.getElementById("form").reset();
+        toast.success("Form has been submitted")
+    }
+
+
     return (
         <div className="newsForm">
             <p>Subscribe to our newsletter</p>
-            <form>
+            <form onSubmit={handleSubmit} id="form">
                 {firstname
                     ?<p>Number of characters = {firstname.length}</p>
                     :<p></p>
@@ -37,7 +49,8 @@ const Form = () => {
                         id="firstname"
                         name="firstname"
                         onChange={changeFirstName}
-                /></label>
+                > </input>
+                </label>
                 {lastname
                     ?<p>Number of characters = {lastname.length}</p>
                     :<p></p>
