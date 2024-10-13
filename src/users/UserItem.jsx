@@ -3,6 +3,10 @@ import UserPhoto from "./UserPhoto";
 const UserItem = ({ user }) => {
     const { email, login, location, name, picture } = user;
 
+    const removeMe = (id) => {
+        remove(id)
+    }
+
     return (
         <div className="users">
             <div className="user">
@@ -21,6 +25,9 @@ const UserItem = ({ user }) => {
                 {location.city +", "}
                 {location.country}
             </h4>
+            <button onClick={removeMe}>
+                remove
+            </button>
             </div>
         </div>
     )
