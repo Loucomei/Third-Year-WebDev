@@ -1,6 +1,6 @@
 import React from "react"
 
-const MenuCategories = ({ categories, filterAuthor}) => {
+const MenuCategories = ({ categories, changeFilter}) => {
 
     return (
         <div>
@@ -9,7 +9,7 @@ const MenuCategories = ({ categories, filterAuthor}) => {
                     <button 
                         key={category}
                         onClick={() => {
-                            filterAuthor(category);
+                            changeFilter(category);
                         }}
                     > {category}
                     </button>

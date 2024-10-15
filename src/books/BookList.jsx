@@ -4,6 +4,7 @@ import Book from "./Book";
 import MenuTitle from "../components/MenuTitle";
 import MenuCategories from "../components/MenuCategories";
 import { data } from "./data.js";
+import Search from "../components/Search.jsx";
 
 const { items } = data;
 const menuTitle = "Books Menu";
@@ -11,30 +12,35 @@ const tempAuthors = items.map((item) =>{
   return item.volumeInfo.authors;
 })
 const tempSet = new Set(tempAuthors.flat());
-const allAuthors = ["All", ...tempSet];
+const allProducts = ["All", ...tempSet];
 
 const BookList = () => {
 
-  const [authors, setAuthors] = useState(allAuthors);
-  const [author, setAuthor] = useState("All");
+  const [authors, setProducts] = useState(allProducts);
+  const [author, setProduct] = useState("All");
 
-  const filterAuthor = (author) => {
-    const newItems = allAuthors.filter((item) => {
-      return item === author;
+  const changeFilter = (author) => {
+    console.log(author)
+    const newItems = allProducts.filter((item) => {
+      return item.toLowerCase().includes(author);
     });
-    setAuthor(newItems);
+    console.log(newItems)
+    if(newItems.length != 0){
+      setProduct(newItems);
+    }
   };
 
   return (
     <>
       <MenuTitle title="Books Menu"/>
-      <MenuCategories categories={authors} filterAuthor={filterAuthor} />
+      <MenuCategories categories={authors} changeFilter={changeFilter} />
+      <Search changeFilter={changeFilter}/>
       <section className="bookList">
         {items.map((item) => {
 
           const { volumeInfo } = item;
 
-          if(author[0].length == 1 || author[0] == "All") {
+          if((author[0].length == 1 || author[0] == "All") && author.length != 0) {
             const { title, subtitle, authors, imageLinks } = volumeInfo;
             return (
                 <Book 
