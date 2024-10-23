@@ -1,15 +1,12 @@
-import BooksList from "../books/BookList";
-import Users from "../users/Users"
-
+import Items from "../items/Items";
 
 const LandingPage = () => {
-    return (
-        <>
-            {/* <BooksList /> */}
-            <Users />
-        </>
-    )
-}
+  return (
+    <>
+      {/* <BooksList /> */}
+      <Items />
+    </>
+  );
+};
 
-export default LandingPage
-
+export default LandingPage;

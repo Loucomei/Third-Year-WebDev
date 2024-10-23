@@ -1,10 +1,10 @@
 import NavBar from"../components/NavBar";
 import BooksList from "../books/BookList";
 
-const BooksPage = ({ changeFilter }) => {
+const BooksPage = () => {
     return (
         <>
-            <NavBar changeFilter={changeFilter}/>
+            <NavBar />
             <BooksList />
         </>
     )
