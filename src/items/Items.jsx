@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import ItemsItem from "./ItemItem";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchItems } from "../features/items/itemSlice";
+import ItemCategories from "../components/ItemCategories";
 
 // This component is responsible for showing the items on the webpage by mapping
 // to an ItemItem component.
@@ -21,6 +22,7 @@ function Items() {
 
   return (
     <section>
+      <ItemCategories />
       <h2>Items</h2>
       <div>
         {randomItems.map((item) => {
