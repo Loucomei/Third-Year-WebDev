@@ -6,7 +6,7 @@ import NavBar from"../components/NavBar";
 const HomeLayoutPage = () => {
     return (
         <>
-            <NavBar />
+            <NavBar/>
             <Outlet />
         </>
     )
