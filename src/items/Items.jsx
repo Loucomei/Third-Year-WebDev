@@ -21,9 +21,6 @@ function Items() {
 
   else {
 
-    //Items to be displayed
-    const isItem = ( category, filter ) => category === filter;
-
     //Map all categories to an array
     //Remove redundant values
     //Create category list
