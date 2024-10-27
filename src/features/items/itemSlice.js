@@ -22,25 +22,6 @@ export const fetchItems = createAsyncThunk(
   }
 );
 
-export const changeFilter = createAsyncThunk(
-  "items/changeFilter",
-  async (name, thunkAPI) => {
-    try {
-      console.log(filter)
-      const response = await axios.get(URL);
-      const data = response.data
-      const newResponse =  data.filter((item) => {
-        return item.category.toLowerCase().includes(filter);
-      });
-      console.log(newResponse);
-      return newResponse;
-    } catch (error) {
-      console.error(error);
-      return thunkAPI.rejectWithValue(error.response);
-    }
-  }
-);
-
 const itemSlice = createSlice({
   name: "items",
   initialState,

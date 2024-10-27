@@ -1,9 +1,7 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { toast } from "react-toastify";
 import ItemsItem from "./ItemItem";
 import { useDispatch, useSelector } from "react-redux";
-import { changeFilter, fetchItems } from "../features/items/itemSlice";
+import { fetchItems } from "../features/items/itemSlice";
 import ItemCategories from "../components/ItemCategories";
 
 // This component is responsible for showing the items on the webpage by mapping
@@ -16,10 +14,6 @@ function Items() {
   useEffect(() => {
     dispatch(fetchItems());
   }, []);
-
-  const updateItems = ( filter ) => {
-    dispatch(changeFilter( filter={filter} ));
-  }
 
   if (isLoading) {
     return <h2>Loading...</h2>;
