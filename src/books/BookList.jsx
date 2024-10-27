@@ -22,7 +22,8 @@ const BookList = () => {
   const changeFilter = (author) => {
     console.log(author)
     const newItems = allProducts.filter((item) => {
-      return item.toLowerCase().includes(author);
+      console.log(item)
+      return item  === author;
     });
     console.log(newItems)
     if(newItems.length != 0){

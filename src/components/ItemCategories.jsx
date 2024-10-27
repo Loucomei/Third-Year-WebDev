@@ -1,6 +1,6 @@
 import React from "react"
 
-const ItemCategories = ({ categories }) => {
+const ItemCategories = ({ categories, changeFilter }) => {
 
     return (
         <div>
@@ -8,6 +8,9 @@ const ItemCategories = ({ categories }) => {
                 return (
                     <button 
                         key={category}
+                        onClick={() => {
+                            changeFilter(category);
+                        }}
                     > {category}
                     </button>
                 )
