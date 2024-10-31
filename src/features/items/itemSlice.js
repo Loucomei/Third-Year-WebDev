@@ -1,10 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 const URL = "https://fakestoreapi.com/products";
+const filter = "All"
+
 
 const initialState = {
   randomItems: [],
-  isLoading: false,
+  isLoading: true,
 };
 
 export const fetchItems = createAsyncThunk(
@@ -40,10 +42,10 @@ const itemSlice = createSlice({
       .addCase(fetchItems.fulfilled, (state, action) => {
         state.isLoading = false;
         state.randomItems = action.payload;
-      });
-    builder.addCase(fetchItems.rejected, (state) => {
+      })
+      .addCase(fetchItems.rejected, (state) => {
       state.isLoading = false;
-    });
+      })
   },
 });
 
