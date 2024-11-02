@@ -11,7 +11,17 @@ const menuTitle = "Books Menu";
 const tempAuthors = items.map((item) =>{
   return item.volumeInfo.authors;
 })
+
+const tempItemNames = items.map((item) =>{
+  return item.volumeInfo.title;
+})
+
 const tempSet = new Set(tempAuthors.flat());
+
+const tempItemNamesSet = new Set(tempItemNames.flat());
+
+
+const someNames = [...tempItemNamesSet]
 const allProducts = ["All", ...tempSet];
 
 const BookList = () => {
@@ -21,9 +31,8 @@ const BookList = () => {
 
   const changeFilter = (author) => {
     console.log(author)
-    const newItems = allProducts.filter((item) => {
-      console.log(item)
-      return item  === author;
+    const newItems = someNames.filter((item) => {
+      return item.toLowerCase().includes(author);
     });
     console.log(newItems)
     if(newItems.length != 0){
