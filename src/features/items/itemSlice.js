@@ -1,12 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 const URL = "https://fakestoreapi.com/products";
-const filter = "All";
 
 const initialState = {
   randomItems: [],
   isLoading: true,
   itemsFound: false,
+  categoryFilter: "All",
+  nameFilter: "",
 };
 
 export const fetchItems = createAsyncThunk(
@@ -36,6 +37,14 @@ const itemSlice = createSlice({
     setItemsFound: (state) => {
       state.itemsFound = !state.itemsFound;
     },
+    setCategoryFilter: (state, action) => {
+      const filter = action.payload;
+      state.categoryFilter = filter;
+    },
+    setNameFilter: (state, action) => {
+      const filter = action.payload;
+      state.nameFilter = filter;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -52,8 +61,11 @@ const itemSlice = createSlice({
       });
   },
 });
-
-export const { clearList } = itemSlice.actions;
-export const { removeUser } = itemSlice.actions;
-export const { setItemsFound } = itemSlice.actions;
+export const {
+  clearList,
+  removeUser,
+  setItemsFound,
+  setCategoryFilter,
+  setNameFilter,
+} = itemSlice.actions;
 export default itemSlice.reducer;
