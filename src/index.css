@@ -27,7 +27,6 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
   min-width: 320px;
   min-height: 100vh;
 }
@@ -53,17 +52,6 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
-}
-.bookList {
-  display: flex;
-  width: 50%;
-}
-
-.book {
-  margin-left: 10px;
-  margin-right: 10px;
-  background-color: rgb(215, 241, 250);
-  border: solid black 2px;
 }
 
 .NavBar ul{
@@ -117,10 +105,28 @@ button:focus-visible {
   background-color: lightgray;
 }
 
+.form{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.itemList{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 10px;
+  justify-content: center;
+}
+.itemList div{
+  margin: 12px;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
     background-color: #ffffff;
+
   }
   a:hover {
     color: #747bff;

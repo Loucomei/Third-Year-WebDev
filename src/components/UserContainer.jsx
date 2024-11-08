@@ -15,19 +15,8 @@ const UserContainer = ( props ) => {
                     </div>
                 </li>
             ) : (
-                <li>
-                {" Please "}
-                <button
-                className="btn bg-slate-200"
-                onClick={login}>
-                    login
-                </button>
-                <button
-                className="btn bg-slate-200"
-                onClick={register}>
-                    register
-                </button>
-                </li>
+                <>
+                </>
             )
         }
         </ul>

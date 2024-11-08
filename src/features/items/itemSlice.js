@@ -37,14 +37,14 @@ const itemSlice = createSlice({
     setItemsFound: (state) => {
       state.itemsFound = !state.itemsFound;
     },
-    setCategoryFilter: (state, action) => {
+    setCategoryFilter: (state, action) =>{
       const filter = action.payload;
       state.categoryFilter = filter;
     },
     setNameFilter: (state, action) => {
       const filter = action.payload;
       state.nameFilter = filter;
-    },
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -57,8 +57,8 @@ const itemSlice = createSlice({
         state.randomItems = action.payload;
       })
       .addCase(fetchItems.rejected, (state) => {
-        state.isLoading = false;
-      });
+      state.isLoading = false;
+      })
   },
 });
 export const {
@@ -66,6 +66,6 @@ export const {
   removeUser,
   setItemsFound,
   setCategoryFilter,
-  setNameFilter,
+  setNameFilter
 } = itemSlice.actions;
 export default itemSlice.reducer;

@@ -11,6 +11,7 @@ const ItemCategories = ({ categories, changeFilter }) => {
                         onClick={() => {
                             changeFilter(category);
                         }}
+                        className="btn glass"
                     > {category}
                     </button>
                 )

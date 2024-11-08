@@ -1,12 +1,11 @@
 import { createBrowserRouter } from "react-router-dom";
 import {
     LandingPage,
-    BooksPage,
-    NewsLetterPage,
     HomeLayoutPage,
     ErrorPage,
     LoginPage,
-    RegisterPage
+    RegisterPage,
+    ItemDetailPage
 } from "./pages/index"
 
 import { action as registerAction } from "./pages/RegisterPage";
@@ -25,14 +24,6 @@ export const router = createBrowserRouter([
                 element: <LandingPage />,
             },
             {
-                path: "/books",
-                element: <BooksPage />,
-            },
-            {
-                path: "/newsletter",
-                element: <NewsLetterPage />,
-            },
-            {
                 path: "/login",
                 element: <LoginPage />,
                 action: loginAction(store)
@@ -41,6 +32,10 @@ export const router = createBrowserRouter([
                 path: "/register",
                 element: <RegisterPage />,
                 action: registerAction
+            },
+            {
+                path: "/item",
+                element: <ItemDetailPage />,
             },
         ],
     },

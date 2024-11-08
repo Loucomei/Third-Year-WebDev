@@ -5,10 +5,15 @@ import { ItemDescription } from "./ItemDescription";
 import { ItemCategory } from "./ItemCategory";
 import { ItemPhoto } from "./ItemPhoto";
 import Timer from "./Timer";
+import { NavLink } from "react-router-dom";
 
 // This component is resposible for showing the components of Item on the webpage.
 const ItemItem = ({ item, time }) => {
   const { id, title, price, category, description, image } = item;
+
+  const details = () => {
+    localStorage.setItem("item", JSON.stringify(item));
+  }
 
   return (
     <>
@@ -23,9 +28,9 @@ const ItemItem = ({ item, time }) => {
           {title}
           <Timer seconds={time} />
         </h2>
-        <p>{description}</p>
+        <p></p>
         <div className="card-actions justify-end">
-          <button className="btn btn-primary">Current Bid £{price} </button>
+          <NavLink to="/item" onClick={details} className ="btn btn-primary">Current Bid £{price}</NavLink>
         </div>
       </div>
     </div>

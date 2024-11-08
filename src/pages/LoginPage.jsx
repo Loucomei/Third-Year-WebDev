@@ -2,7 +2,7 @@ import { FormInput, SubmitButton } from "../components";
 import { Form, Link, redirect } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { loginUser, getUser } from "../features/appUsers/appUserSlice";
+import { loginUser } from "../features/appUsers/appUserSlice";
 
 const LOGIN_URL =
   import.meta.env.MODE === "development"
@@ -32,37 +32,35 @@ export const action =
     }
   };
 
-const LoginPage = () => {
-  return (
-    <div className="form">
-      <h4 className="text-center text-3xl font-bold">Please Login</h4>
-      <></>
-      <Form
-        method="POST"
-        className="p-8 bg-base-100 flex flex-col gap-y-4"
-        id="login"
-      >
-        <FormInput
-          label="username"
-          type="name"
-          name="identifier"
-          defaultValue="Username or Email "
-        />
-        <FormInput
-          label="password"
-          type="password"
-          name="password"
-          defaultValue="Password"
-        />
-        <SubmitButton text="Login" form="login" />
-      </Form>
-      <p className="text-center">
-        Not a member?{" "}
-        <Link to="/register" className="ml-2 link-accent">
-          Register
-        </Link>
-      </p>
-    </div>
-  );
-};
+  const LoginPage = () => {
+    return (
+        <div className="form bg-base-100">
+                <Form method="POST" className="p-8 bg-base-100 flex flex-col gap-y-4" id="login">
+                    <h4 className="text-center text-3xl font-bold">
+                        Login
+                    </h4>
+                    <FormInput
+                        label="username"
+                        type="name"
+                        name="identifier"
+                        defaultValue="Username or Email "
+                    />
+                    <FormInput
+                        label="password"
+                        type="password"
+                        name="password"
+                        defaultValue="Password"
+                    />
+                    <SubmitButton text="Login" form="login"/>
+                </Form>
+                <p className="text-center">
+                    Not a member?{" "}
+                    <Link to="/register" className="ml-2 link-accent">
+                        Register
+                    </Link>
+                </p>
+        </div>
+        
+    )
+}
 export default LoginPage;

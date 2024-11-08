@@ -105,17 +105,19 @@ const Items = () => {
         <div>
           <ItemCategories categories={allCategories} changeFilter={changeFilter}/>
           <Search changeFilter={filterNames}/>
-          No Items Found Sorry q-q
+          No Items Found
         </div>
       )
     }
     else{
       return (
-        <div>
+        <div className="bg-base-100">
           <ItemCategories categories={allCategories} changeFilter={changeFilter}/>
           <Search changeFilter={filterNames}/>
+          <h4 className="text-center text-3xl font-bold">
+                    Items
+          </h4>
             <section className="itemList">
-            <h2>Items</h2>
             {randomItems.map((item) => {
               if((item.title.toLowerCase().includes(nameFilter) || nameFilter.length == 0)){
                 if((categoryFilter[0].length == 1 || categoryFilter[0] == "All" )) {
@@ -127,19 +129,13 @@ const Items = () => {
                       />
                   )}
                 else {
-                  //console.log(filter)
-                  //console.log(nameFilter)
-                  //console.log(item.title.toLowerCase());
-                  //console.log(item.title.toLowerCase().startsWith(nameFilter));
-                  //console.log(item.category == filter);
-                  //console.log(nameFilter.length);
-                  //console.log(item.category == filter && (item.title.toLowerCase().startsWith(nameFilter) || nameFilter.length == 0));
                   if (item.category == categoryFilter){
                     return (
                         <ItemsItem 
                           item={item}
                           time={20}
                           key={item.id}
+                          className="item"
                         />
                     )
                   }

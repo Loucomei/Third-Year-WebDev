@@ -51,13 +51,9 @@ const NavBar = () => {
         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
         <li><NavLink to="/">Home </NavLink></li>
         <li>
-          <a>Store</a>
+          <a>Account</a>
           <ul className="p-2">
-            <li><NavLink to="/books">Books </NavLink></li>
-            <li><NavLink to="/newsletter">News </NavLink></li>
-          </ul>
-        </li>
-        {
+          {
           user ? (
             <>
               <li><NavLink to="/settings">Settings </NavLink></li>
@@ -70,28 +66,21 @@ const NavBar = () => {
             </>
           )
         }
+          </ul>
+        </li>
       </ul>
     </div>
-    <a className="btn btn-ghost text-xl">FinalOffer</a>
+    <button className="btn btn-ghost text-xl"><NavLink to="/">FinalOffer</NavLink></button>
   </div>
   <div className="navbar-center hidden lg:flex">
     <ul className="menu menu-horizontal px-1">
       <li><NavLink to="/">Home </NavLink></li>
-      <li>
-        <details>
-          <summary>Store</summary>
-          <ul className="p-2">
-            <li><NavLink to="/books">Books </NavLink></li>
-            <li><NavLink to="/newsletter">News </NavLink></li>
-          </ul>
-        </details>
-      </li>
       {
           user ? (
-            <>
+            <ul>
               <li><NavLink to="/settings">Settings </NavLink></li>
               <li><button onClick={logout}>Sign Out</button></li>
-            </>
+            </ul>
           ):(
             <>
               <li><NavLink to="/login">Login </NavLink></li>
@@ -102,10 +91,13 @@ const NavBar = () => {
     </ul>
   </div>
   <div className="navbar-end">
+  <input
+  type="checkbox"
+  value="cupcake"
+  className="toggle theme-controller col-span-2 col-start-1 row-start-1 border-sky-400 bg-amber-300 [--tglbg:theme(colors.sky.500)] checked:border-blue-800 checked:bg-blue-300 checked:[--tglbg:theme(colors.blue.900)]" />
     {
       (useLocation().pathname == '/register' || useLocation().pathname == '/login') ? (
         <>
-        Social links here
         </>
       ) : (
         <UserContainer user={user} logout={logout} login={login} register={register} />
