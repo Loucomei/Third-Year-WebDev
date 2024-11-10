@@ -38,7 +38,7 @@ export const fetchItems = createAsyncThunk(
   async (name, thunkAPI) => {
     try {
       const response = await axios.get(URL);
-      const responseDB = await fetch(ALLITEMS_URL);
+      const responseDB = await fetch(URL);
       const data = await responseDB.json();
       response.data.forEach((item) => {
         data.forEach((bidItem) => {
@@ -90,8 +90,10 @@ const itemSlice = createSlice({
         state.once = true;
         state.itemsFound = true;
         state.randomItems = action.payload;
-        if (state.timers != []) {
+        console.log(JSON.parse(localStorage.getItem("timers")) == null);
+        if (localStorage.getItem("timers" == null)) {
           state.timers = createTimers(state.randomItems);
+          localStorage.setItem("timers", JSON.stringify(state.timers));
         }
         state.isLoading = false;
       })

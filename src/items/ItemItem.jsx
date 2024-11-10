@@ -26,7 +26,7 @@ const ItemItem = ({ item, time }) => {
       <div className="card-body">
         <h2 className="card-title text-accent">
           {title}
-          <Timer seconds={time} />
+          <Timer timer={time} />
         </h2>
         <p></p>
         <div className="card-actions justify-end">

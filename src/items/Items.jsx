@@ -30,6 +30,13 @@ const Items = () => {
   if (isLoading) {
     return <h2>Loading...</h2>;
   } else {
+
+    const seconds = Math.round(new Date().getTime() / 1000);
+
+    const timers = JSON.parse(localStorage.getItem("timers"));
+
+    console.log(timers)
+
     //Map all categories to an array
     //Remove redundant values
     //Create category list
@@ -123,6 +130,7 @@ const Items = () => {
             <h4 className="text-center text-3xl font-bold">Items</h4>
           <section className="itemList">
             {randomItems.map((item) => {
+              const timer = timers[item.id]
               if (
                 item.title.toLowerCase().includes(nameFilter) ||
                 nameFilter.length == 0
@@ -131,13 +139,13 @@ const Items = () => {
                   categoryFilter[0].length == 1 ||
                   categoryFilter[0] == "All"
                 ) {
-                  return <ItemsItem item={item} time={20} key={item.id} />;
+                  return <ItemsItem item={item} time={timer - seconds} key={item.id} />;
                 } else {
                   if (item.category == categoryFilter) {
                     return (
                       <ItemsItem
                         item={item}
-                        time={20}
+                        time={timer - seconds}
                         key={item.id}
                         className="item"
                       />

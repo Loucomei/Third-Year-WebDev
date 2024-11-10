@@ -3,6 +3,8 @@ const Timer = (props) => {
   const { timer } = props;
   var time = timer;
 
+  console.log(props)
+
   const [hours, setHours] = useState(Math.floor(time / 3600));
   time -= hours * 3600;
 
