@@ -18,7 +18,9 @@ const ItemDetailPage = () => {
   const navigate = useNavigate();
 
   if (localStorage.getItem("item") == null) {
-    navigate("/");
+    useEffect(()=>{
+      navigate("/");
+    }, [])
   } else {
     const { id, title, price, category, description, image } = item;
 
