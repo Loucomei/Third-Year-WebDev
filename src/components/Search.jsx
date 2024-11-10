@@ -1,7 +1,7 @@
 const Search = ({ changeFilter }) => {
     
     return (
-        <>
+        <div className="bg-base-100">
             <label className="input input-bordered flex items-center gap-2">
                 <input
                 type="text"
@@ -22,7 +22,7 @@ const Search = ({ changeFilter }) => {
                     clipRule="evenodd" />
                 </svg>
             </label>
-        </>
+        </div>
     )
 }
 export default Search;

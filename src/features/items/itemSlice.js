@@ -20,7 +20,7 @@ export const fetchItems = createAsyncThunk(
   async (name, thunkAPI) => {
     try {
       const response = await axios.get(URL);
-      const responseDB = await fetch(ALLITEMS_URL);
+      const responseDB = await fetch(URL);
       const data = await responseDB.json();
       response.data.forEach((item) => {
         data.forEach((bidItem) => {

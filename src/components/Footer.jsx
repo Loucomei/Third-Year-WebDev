@@ -1,6 +1,6 @@
 const Footer = () => {
     return (
-        <>
+        <div >
             <footer className="footer bg-neutral text-neutral-content p-10">
                 <nav>
                     <h6 className="footer-title">Services</h6>
@@ -24,7 +24,7 @@ const Footer = () => {
                 </nav>
                 Copyright FinalOffer 2024
             </footer>
-        </>
+        </div>
     )
 }
 export default Footer;

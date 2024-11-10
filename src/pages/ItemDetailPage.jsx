@@ -82,8 +82,8 @@ const ItemDetailPage = () => {
           <div className="hero-content flex-col lg:flex-row">
             <img src={image} className="max-w-sm rounded-lg shadow-2xl" />
             <div>
-              <h1 className="text-5xl font-bold">{title}</h1>
-              <p className="py-6">{description}</p>
+              <h1 className="text-5xl font-bold text-accent">{title}</h1>
+              <p className="py-6 text-accent">{description}</p>
               <label className="form-control w-full max-w-xs">
                 <div className="label">
                   <span className="label-text">Enter your bid</span>

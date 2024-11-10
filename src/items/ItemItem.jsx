@@ -24,7 +24,7 @@ const ItemItem = ({ item, time }) => {
           alt="Shoes" />
       </figure>
       <div className="card-body">
-        <h2 className="card-title">
+        <h2 className="card-title text-accent">
           {title}
           <Timer seconds={time} />
         </h2>
