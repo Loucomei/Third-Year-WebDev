@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../features/appUsers/appUserSlice";
 
 const NavBar = () => {
-  const user = useSelector((state) => state.appUsers.user);
+  const user = JSON.parse(localStorage.getItem("appUser"));
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 

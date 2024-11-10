@@ -13,6 +13,24 @@ const initialState = {
   itemsFound: false,
   categoryFilter: "All",
   nameFilter: "",
+  timers: [],
+  once: false,
+};
+
+const createTimers = (randomItems) => {
+  var timers = [];
+  for (const item in randomItems) {
+    // 1. Get current time in seconds
+    // 2. Generate random time between 21hours and 1hour
+    // 3. Return nearest whole number sum of 1. and 2.
+    const randomTime = () => {
+      const seconds = new Date().getTime() / 1000;
+      const time = Math.random() * 60 * 60 * 20 + 3600;
+      return Math.round(time + seconds);
+    };
+    timers = [...timers, randomTime()];
+  }
+  return timers;
 };
 
 export const fetchItems = createAsyncThunk(
@@ -20,7 +38,7 @@ export const fetchItems = createAsyncThunk(
   async (name, thunkAPI) => {
     try {
       const response = await axios.get(URL);
-      const responseDB = await fetch(URL);
+      const responseDB = await fetch(ALLITEMS_URL);
       const data = await responseDB.json();
       response.data.forEach((item) => {
         data.forEach((bidItem) => {
@@ -59,6 +77,9 @@ const itemSlice = createSlice({
       const filter = action.payload;
       state.nameFilter = filter;
     },
+    setTimer: (state) => {
+      state.timePassed += 1;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -66,20 +87,26 @@ const itemSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(fetchItems.fulfilled, (state, action) => {
-        state.isLoading = false;
+        state.once = true;
         state.itemsFound = true;
         state.randomItems = action.payload;
+        if (state.timers != []) {
+          state.timers = createTimers(state.randomItems);
+        }
+        state.isLoading = false;
       })
       .addCase(fetchItems.rejected, (state) => {
         state.isLoading = false;
       });
   },
 });
+
 export const {
   clearList,
   removeUser,
   setItemsFound,
   setCategoryFilter,
   setNameFilter,
+  setTimer,
 } = itemSlice.actions;
 export default itemSlice.reducer;
