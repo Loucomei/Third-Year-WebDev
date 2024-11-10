@@ -34,7 +34,7 @@ export const action =
 
   const LoginPage = () => {
     return (
-        <div className="form bg-base-100">
+        <div className="form bg-base-100" >
                 <Form method="POST" className="p-8 bg-base-100 flex flex-col gap-y-4" id="login">
                     <h4 className="text-center text-3xl font-bold">
                         Login

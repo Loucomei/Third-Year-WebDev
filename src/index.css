@@ -84,17 +84,6 @@ button:focus-visible {
   width: 50%;
   left: 25%;
 }
-.newsForm label {
-  display: table-row;
-}
-.newsForm input {
-  background-color: rgb(240, 240, 240);
-  box-shadow: inset -2px -2px 2px rgb(216, 216, 216);
-  border: 1px rgb(172, 172, 172) solid;
-}
-.newsForm p {
-  font-weight: bold;
-}
 .user {
   background-color: rgb(175, 175, 175);
   border: 3px black solid;
@@ -109,6 +98,7 @@ button:focus-visible {
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 12% 0px 12% 0px;
 }
 
 .itemList{
@@ -120,6 +110,21 @@ button:focus-visible {
 }
 .itemList div{
   margin: 12px;
+}
+
+.stat-value{
+  text-align: center;
+  padding: 15% 0px 15% 0;
+}
+
+.card{
+  border: white solid 1px;
+}
+
+.card:hover{
+  transition: all;
+  transition: 200ms;
+  box-shadow: 2px 2px 5px white;
 }
 
 @media (prefers-color-scheme: light) {

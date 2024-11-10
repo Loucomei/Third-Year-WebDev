@@ -107,18 +107,20 @@ const Items = () => {
             changeFilter={changeFilter}
           />
           <Search changeFilter={filterNames} />
-          No Items Found
+          <div className="bg-base-100">
+            <div className="stat-value text-primary">No items found!</div>
+          </div>
         </div>
       );
     } else {
       return (
-        <div className="bg-base-100">
+        <div className="bg-base-100" >
           <ItemCategories
             categories={allCategories}
             changeFilter={changeFilter}
           />
           <Search changeFilter={filterNames} />
-          <h4 className="text-center text-3xl font-bold">Items</h4>
+            <h4 className="text-center text-3xl font-bold">Items</h4>
           <section className="itemList">
             {randomItems.map((item) => {
               if (
