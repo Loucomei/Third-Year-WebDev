@@ -46,9 +46,7 @@ const ItemDetailPage = () => {
       }
     };
 
-    useEffect(() => {
-      singleItemAPI();
-    }, [])
+    singleItemAPI();
 
     const priceCheck = (e) => {
       if (e.target.value <= price) {
