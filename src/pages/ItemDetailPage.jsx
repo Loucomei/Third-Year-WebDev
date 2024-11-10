@@ -21,27 +21,41 @@ const ItemDetailPage = () => {
   } else {
     const { id, title, price, category, description, image } = item;
     const navigate = useNavigate();
+
     const [newPrice, setNewPrice] = useState(price);
     const [isButtonDisabled, setButtonDisabled] = useState(false);
-    const [currentPrice, setCurrentPrice] = useState(price);
+    var [currentPrice, setCurrentPrice] = useState(price);
 
     const singleItemAPI = async () => {
+      console.log("Ping")
       console.log(id);
-      const response = await axios.get(`${ITEM_URL}?item_id=${id}`, {
-        headers: { "Content-Type": "application/json" },
-      });
-      if (response.data.length !== 0) {
-        setCurrentPrice(response.data[0].price);
+      try {
+        const response = await axios.get(`${ITEM_URL}?item_id=${id}`, {
+          headers: { "Content-Type": "application/json" },
+        });
+        if (response.data.length !== 0) {
+          setCurrentPrice(response.data[0].price);
+        }
+      }
+      catch (error) {
+        if(error?.message == "Network Error"){
+          toast.error(error.message + ". Is the database active?");
+          setButtonDisabled(false);
+        }
+        console.log(error);
       }
     };
 
-    singleItemAPI();
+    useEffect(() => {
+      singleItemAPI();
+    }, [])
 
     const priceCheck = (e) => {
-      setNewPrice(e.target.value);
       if (e.target.value <= price) {
+        setNewPrice(price);
         setButtonDisabled(false);
       } else {
+        setNewPrice(e.target.value);
         setButtonDisabled(true);
       }
     };
@@ -70,17 +84,21 @@ const ItemDetailPage = () => {
             <div>
               <h1 className="text-5xl font-bold">{title}</h1>
               <p className="py-6">{description}</p>
-              <input
-                type="number"
-                value={currentPrice}
-                onChange={priceCheck}
-              ></input>
+              <label className="form-control w-full max-w-xs">
+                <div className="label">
+                  <span className="label-text">Enter your bid</span>
+                  <span className="label-text-alt">Minimum bid £{currentPrice}</span>
+                </div>
+                <input type="number" placeholder={"£" + currentPrice} className="input input-bordered w-full max-w-xs" onChange={priceCheck}/>
+                <div className="label">
+                </div>
+              </label>
               <button
                 className="btn btn-primary btn-lg"
                 onClick={bid}
                 disabled={!isButtonDisabled}
               >
-                £{currentPrice}
+                Submit
               </button>
             </div>
           </div>
