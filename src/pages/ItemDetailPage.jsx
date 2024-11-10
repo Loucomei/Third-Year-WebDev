@@ -15,12 +15,12 @@ const ITEM_URL =
 
 const ItemDetailPage = () => {
   const item = JSON.parse(localStorage.getItem("item"));
+  const navigate = useNavigate();
 
   if (localStorage.getItem("item") == null) {
     navigate("/");
   } else {
     const { id, title, price, category, description, image } = item;
-    const navigate = useNavigate();
 
     const [newPrice, setNewPrice] = useState(price);
     const [isButtonDisabled, setButtonDisabled] = useState(false);
