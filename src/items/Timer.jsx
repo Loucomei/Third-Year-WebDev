@@ -3,7 +3,9 @@ const Timer = (props) => {
   const { timer } = props;
   var time = timer;
 
-  console.log(props)
+  if ( time == NaN ){
+    console.log(time)
+  }
 
   const [hours, setHours] = useState(Math.floor(time / 3600));
   time -= hours * 3600;

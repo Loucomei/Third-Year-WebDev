@@ -35,8 +35,6 @@ const Items = () => {
 
     const timers = JSON.parse(localStorage.getItem("timers"));
 
-    console.log(timers)
-
     //Map all categories to an array
     //Remove redundant values
     //Create category list
@@ -130,7 +128,7 @@ const Items = () => {
             <h4 className="text-center text-3xl font-bold">Items</h4>
           <section className="itemList">
             {randomItems.map((item) => {
-              const timer = timers[item.id]
+              const timer = timers[item.id - 1]
               if (
                 item.title.toLowerCase().includes(nameFilter) ||
                 nameFilter.length == 0

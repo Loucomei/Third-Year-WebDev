@@ -14,7 +14,6 @@ const initialState = {
   categoryFilter: "All",
   nameFilter: "",
   timers: [],
-  once: false,
 };
 
 const createTimers = (randomItems) => {
@@ -77,8 +76,11 @@ const itemSlice = createSlice({
       const filter = action.payload;
       state.nameFilter = filter;
     },
-    setTimer: (state) => {
-      state.timePassed += 1;
+    createTimer: (state) => {
+      if (localStorage.getItem("timers" == null)) {
+        state.timers = createTimers(state.randomItems);
+        localStorage.setItem("timers", JSON.stringify(state.timers));
+      }
     },
   },
   extraReducers: (builder) => {
@@ -87,11 +89,9 @@ const itemSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(fetchItems.fulfilled, (state, action) => {
-        state.once = true;
         state.itemsFound = true;
         state.randomItems = action.payload;
-        console.log(JSON.parse(localStorage.getItem("timers")) == null);
-        if (localStorage.getItem("timers" == null)) {
+        if (JSON.parse(localStorage.getItem("timers") == null)) {
           state.timers = createTimers(state.randomItems);
           localStorage.setItem("timers", JSON.stringify(state.timers));
         }
