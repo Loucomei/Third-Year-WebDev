@@ -1,36 +1,92 @@
-import { useEffect } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { toast } from "react-toastify";
+
+const BID_URL =
+  import.meta.env.MODE === "development"
+    ? import.meta.env.VITE_DEVELOPMENT_BID_URL
+    : import.meta.env.VITE_PRODUCTION_BID_URL;
+
+const ITEM_URL =
+  import.meta.env.MODE === "development"
+    ? import.meta.env.VITE_DEVELOPMENT_ITEM_URL
+    : import.meta.env.VITE_PRODUCTION_ITEM_URL;
+
 const ItemDetailPage = () => {
+  const item = JSON.parse(localStorage.getItem("item"));
 
+  if (localStorage.getItem("item") == null) {
+    navigate("/");
+  } else {
+    const { id, title, price, category, description, image } = item;
     const navigate = useNavigate();
+    const [newPrice, setNewPrice] = useState(price);
+    const [isButtonDisabled, setButtonDisabled] = useState(false);
+    const [currentPrice, setCurrentPrice] = useState(price);
 
-    const item = JSON.parse(localStorage.getItem("item"));
+    const singleItemAPI = async () => {
+      console.log(id);
+      const response = await axios.get(`${ITEM_URL}?item_id=${id}`, {
+        headers: { "Content-Type": "application/json" },
+      });
+      if (response.data.length !== 0) {
+        setCurrentPrice(response.data[0].price);
+      }
+    };
 
-    if(localStorage.getItem("item") == null){
-        navigate('/')
-    }
-    else{
+    singleItemAPI();
 
-        const { id, title, price, category, description, image } = item;
-
-            return (
-                <>
-                    <div className="hero bg-base-200 min-h-screen">
-                    <div className="hero-content flex-col lg:flex-row">
-                        <img
-                        src={image}
-                        className="max-w-sm rounded-lg shadow-2xl" />
-                        <div>
-                        <h1 className="text-5xl font-bold">{title}</h1>
-                        <p className="py-6">
-                            {description}
-                        </p>
-                        <button className="btn btn-primary btn-lg">£{price}</button>
-                        </div>
-                    </div>
-                    </div>
-                </>
-            )
-        }
-}
+    const priceCheck = (e) => {
+      setNewPrice(e.target.value);
+      if (e.target.value <= price) {
+        setButtonDisabled(false);
+      } else {
+        setButtonDisabled(true);
+      }
+    };
+    const bid = async () => {
+      const item = { item_id: id, price: Number(newPrice) };
+      try {
+        const response = await axios.post(BID_URL, item, {
+          headers: { "Content-Type": "application/json" },
+        });
+        toast.success("Bid success");
+        setCurrentPrice(newPrice);
+      } catch (error) {
+        const errorMessage =
+          error?.response?.data?.error?.message ||
+          "Please double check your credentials";
+        console.log(error);
+        toast.error(errorMessage);
+        return null;
+      }
+    };
+    return (
+      <>
+        <div className="hero bg-base-200 min-h-screen">
+          <div className="hero-content flex-col lg:flex-row">
+            <img src={image} className="max-w-sm rounded-lg shadow-2xl" />
+            <div>
+              <h1 className="text-5xl font-bold">{title}</h1>
+              <p className="py-6">{description}</p>
+              <input
+                type="number"
+                value={currentPrice}
+                onChange={priceCheck}
+              ></input>
+              <button
+                className="btn btn-primary btn-lg"
+                onClick={bid}
+                disabled={!isButtonDisabled}
+              >
+                £{currentPrice}
+              </button>
+            </div>
+          </div>
+        </div>
+      </>
+    );
+  }
+};
 export default ItemDetailPage;

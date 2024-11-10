@@ -2,6 +2,11 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 const URL = "https://fakestoreapi.com/products";
 
+const ALLITEMS_URL =
+  import.meta.env.MODE === "development"
+    ? import.meta.env.VITE_DEVELOPMENT_ITEMS_URL
+    : import.meta.env.VITE_PRODUCTION_ITEMS_URL;
+
 const initialState = {
   randomItems: [],
   isLoading: true,
@@ -15,6 +20,15 @@ export const fetchItems = createAsyncThunk(
   async (name, thunkAPI) => {
     try {
       const response = await axios.get(URL);
+      const responseDB = await fetch(ALLITEMS_URL);
+      const data = await responseDB.json();
+      response.data.forEach((item) => {
+        data.forEach((bidItem) => {
+          if (item.id == bidItem.item_id) {
+            item.price = bidItem.price;
+          }
+        });
+      });
       return response.data;
     } catch (error) {
       console.error(error);
@@ -37,14 +51,14 @@ const itemSlice = createSlice({
     setItemsFound: (state) => {
       state.itemsFound = !state.itemsFound;
     },
-    setCategoryFilter: (state, action) =>{
+    setCategoryFilter: (state, action) => {
       const filter = action.payload;
       state.categoryFilter = filter;
     },
     setNameFilter: (state, action) => {
       const filter = action.payload;
       state.nameFilter = filter;
-    }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -57,8 +71,8 @@ const itemSlice = createSlice({
         state.randomItems = action.payload;
       })
       .addCase(fetchItems.rejected, (state) => {
-      state.isLoading = false;
-      })
+        state.isLoading = false;
+      });
   },
 });
 export const {
@@ -66,6 +80,6 @@ export const {
   removeUser,
   setItemsFound,
   setCategoryFilter,
-  setNameFilter
+  setNameFilter,
 } = itemSlice.actions;
 export default itemSlice.reducer;
