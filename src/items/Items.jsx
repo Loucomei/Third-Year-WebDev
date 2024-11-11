@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import ItemsItem from "./ItemItem";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -9,11 +9,6 @@ import {
 } from "../features/items/itemSlice";
 import ItemCategories from "../components/ItemCategories";
 import Search from "../components/Search.jsx";
-
-const ALLITEMS_URL =
-  import.meta.env.MODE === "development"
-    ? import.meta.env.VITE_DEVELOPMENT_ITEMS_URL
-    : import.meta.env.VITE_PRODUCTION_ITEMS_URL;
 
 // This component is responsible for showing the items on the webpage by mapping
 // to an ItemItem component.
@@ -30,7 +25,6 @@ const Items = () => {
   if (isLoading) {
     return <h2>Loading...</h2>;
   } else {
-
     const seconds = Math.round(new Date().getTime() / 1000);
 
     const timers = JSON.parse(localStorage.getItem("timers"));
@@ -73,7 +67,7 @@ const Items = () => {
       }
 
       if (localFunctionConsoleLogging) {
-        console.log("For changeFilter function: ");
+        ("For changeFilter function: ");
         console.log(filter[0].length);
         console.log(filter[0]);
         console.log(filter.length);
@@ -119,16 +113,16 @@ const Items = () => {
       );
     } else {
       return (
-        <div className="bg-base-100" >
+        <div className="bg-base-100">
           <ItemCategories
             categories={allCategories}
             changeFilter={changeFilter}
           />
           <Search changeFilter={filterNames} />
-            <h4 className="text-center text-3xl font-bold">Items</h4>
+          <h4 className="text-center text-3xl font-bold">New Items</h4>
           <section className="itemList">
             {randomItems.map((item) => {
-              const timer = timers[item.id - 1]
+              const timer = timers[item.id - 1];
               if (
                 item.title.toLowerCase().includes(nameFilter) ||
                 nameFilter.length == 0
@@ -137,16 +131,25 @@ const Items = () => {
                   categoryFilter[0].length == 1 ||
                   categoryFilter[0] == "All"
                 ) {
-                  return <ItemsItem item={item} time={timer - seconds} key={item.id} />;
+                  return (
+                    <ItemsItem
+                      item={item}
+                      time={timer - seconds}
+                      key={item.id}
+                    />
+                  );
                 } else {
                   if (item.category == categoryFilter) {
                     return (
-                      <ItemsItem
-                        item={item}
-                        time={timer - seconds}
-                        key={item.id}
-                        className="item"
-                      />
+                      <>
+                        {console.log(item)}
+                        <ItemsItem
+                          item={item}
+                          time={timer - seconds}
+                          key={item.id}
+                          className="item"
+                        />
+                      </>
                     );
                   }
                 }

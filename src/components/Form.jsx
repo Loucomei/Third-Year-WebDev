@@ -13,29 +13,21 @@ const Form = () => {
   const [email, setEmail] = useState("");
 
   const changeFirstName = (e) => {
-    console.log(` before .. ${firstname}`);
     setFirstname(e.target.value);
-    console.log(` after .. ${firstname}`);
   };
 
   const changeLastName = (e) => {
-    console.log(` before .. ${firstname}`);
     setLastname(e.target.value);
-    console.log(` after .. ${firstname}`);
   };
 
   const changeEmail = (e) => {
     setEmail(e.target.value);
-    console.log(validator.isEmail(e.target.value));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(e.currentTarget);
-    console.log("gowno", e);
     const data = new FormData(e.currentTarget);
     const entries = Object.fromEntries(data);
-    console.log(entries);
     document.getElementById("form").reset();
     axios
       .post(REGISTER_URL, entries, {
@@ -44,12 +36,10 @@ const Form = () => {
         },
       })
       .then((response) => {
-        console.log(response.data);
         resetAllFields();
         toast.success("Form has been submitted");
       })
       .catch((error) => {
-        console.log(error);
         toast.error(error.message);
       });
   };

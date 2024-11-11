@@ -10,18 +10,15 @@ const NavBar = () => {
   const dispatch = useDispatch();
 
   const logout = () => {
-    console.log("logout");
     dispatch(logoutUser());
     navigate("/");
   };
 
   const login = () => {
-    console.log("login");
     navigate("/login");
   };
 
   const register = () => {
-    console.log("login");
     navigate("/register");
   };
 

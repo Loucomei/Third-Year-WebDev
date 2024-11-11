@@ -3,10 +3,6 @@ const Timer = (props) => {
   const { timer } = props;
   var time = timer;
 
-  if ( time == NaN ){
-    console.log(time)
-  }
-
   const [hours, setHours] = useState(Math.floor(time / 3600));
   time -= hours * 3600;
 
@@ -15,7 +11,7 @@ const Timer = (props) => {
 
   const [seconds, setSeconds] = useState(Math.floor(time));
 
-  const [auctionComplete, setAuctionComplete] = useState(false);
+  const [setAuctionComplete] = useState(false);
 
   const updateVar = () => {
     if (hours <= 0 && minutes <= 0 && seconds <= 0) {

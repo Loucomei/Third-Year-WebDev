@@ -1,17 +1,16 @@
-import { Outlet } from "react-router-dom"
+import { Outlet } from "react-router-dom";
 
-import NavBar from"../components/NavBar";
+import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 
-
 const HomeLayoutPage = () => {
-    return (
-        <>
-            <NavBar />
-            <Outlet />
-            <Footer />
-        </>
-    )
-}
+  return (
+    <>
+      <NavBar />
+      <Outlet />
+      <Footer />
+    </>
+  );
+};
 
-export default HomeLayoutPage
+export default HomeLayoutPage;

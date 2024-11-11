@@ -18,19 +18,18 @@ const ItemDetailPage = () => {
   const navigate = useNavigate();
 
   if (localStorage.getItem("item") == null) {
-    useEffect(()=>{
+    useEffect(() => {
       navigate("/");
-    }, [])
+    }, []);
   } else {
-    const { id, title, price, category, description, image } = item;
+    const { id, title, price, description, image } = item;
 
     const [newPrice, setNewPrice] = useState(price);
     const [isButtonDisabled, setButtonDisabled] = useState(false);
     var [currentPrice, setCurrentPrice] = useState(price);
 
+    //sends a request to the backend to get the current price of the item
     const singleItemAPI = async () => {
-      console.log("Ping")
-      console.log(id);
       try {
         const response = await axios.get(`${ITEM_URL}?item_id=${id}`, {
           headers: { "Content-Type": "application/json" },
@@ -38,18 +37,18 @@ const ItemDetailPage = () => {
         if (response.data.length !== 0) {
           setCurrentPrice(response.data[0].price);
         }
-      }
-      catch (error) {
-        if(error?.message == "Network Error"){
+      } catch (error) {
+        if (error?.message == "Network Error") {
           toast.error(error.message + ". Is the database active?");
           setButtonDisabled(false);
         }
-        console.log(error);
       }
     };
 
     singleItemAPI();
 
+    //checks the price entered by the user and disables the button if the price is less
+    //than the current price of the item
     const priceCheck = (e) => {
       if (e.target.value <= price) {
         setNewPrice(price);
@@ -59,6 +58,8 @@ const ItemDetailPage = () => {
         setButtonDisabled(true);
       }
     };
+
+    //sends a request to the backend to bid on the item
     const bid = async () => {
       const item = { item_id: id, price: Number(newPrice) };
       try {
@@ -71,7 +72,6 @@ const ItemDetailPage = () => {
         const errorMessage =
           error?.response?.data?.error?.message ||
           "Please double check your credentials";
-        console.log(error);
         toast.error(errorMessage);
         return null;
       }
@@ -87,11 +87,17 @@ const ItemDetailPage = () => {
               <label className="form-control w-full max-w-xs">
                 <div className="label">
                   <span className="label-text">Enter your bid</span>
-                  <span className="label-text-alt">Minimum bid £{currentPrice}</span>
+                  <span className="label-text-alt">
+                    Minimum bid £{currentPrice}
+                  </span>
                 </div>
-                <input type="number" placeholder={"£" + currentPrice} className="input input-bordered w-full max-w-xs" onChange={priceCheck}/>
-                <div className="label">
-                </div>
+                <input
+                  type="number"
+                  placeholder={"£" + currentPrice}
+                  className="input input-bordered w-full max-w-xs"
+                  onChange={priceCheck}
+                />
+                <div className="label"></div>
               </label>
               <button
                 className="btn btn-primary btn-lg"
